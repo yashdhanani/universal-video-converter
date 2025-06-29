@@ -1,18 +1,3 @@
----
-title: Universal Video Converter
-emoji: 🏢
-colorFrom: purple
-colorTo: purple
-sdk: gradio
-sdk_version: 5.35.0
-app_file: app.py
-pinned: false
-license: mit
-short_description: A Gradio web app to change the aspect ratio of videos
----
-
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
-
 # 🖼️ Universal Aspect Ratio Converter
 
 A simple and user-friendly web tool to convert the aspect ratio of any video. Built with Python, Gradio, and MoviePy.
