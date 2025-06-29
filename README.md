@@ -2,7 +2,7 @@
 
 A simple and user-friendly web tool to convert the aspect ratio of any video. Built with Python, Gradio, and MoviePy.
 
-**Live Demo:** [**Click here to try the app!**](https://huggingface.co/spaces/dhananiyash9/universal-video-converter)  ![App Screenshot](https://huggingface.co/spaces/dhananiyash9/universal-video-converter/resolve/main/screenshot.png) ---
+**Live Demo:** [**Click here to try the app!**](https://huggingface.co/spaces/dhananiyash9/universal-video-converter)  ![App Screenshot](https://huggingface.co/spaces/dhananiyash9/universal-video-converter/resolve/main/Screenshot.png) ---
 
 ## ✨ Features
 
