@@ -1,3 +1,10 @@
-gradio==4.21.0
+gradio==4.44.1
 moviepy==1.0.3
-imageio-ffmpeg==0.4.9
+imageio-ffmpeg==0.5.1
+numpy<2
+pillow==10.4.0
+ffmpeg-python==0.2.0
+spaces==0.30.2
+fastapi==0.112.2
+uvicorn[standard]==0.30.6
+websockets==12.0
