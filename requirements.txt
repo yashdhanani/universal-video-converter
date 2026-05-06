@@ -8,3 +8,4 @@ spaces==0.30.2
 fastapi==0.112.2
 uvicorn[standard]==0.30.6
 websockets==12.0
+opencv-python-headless==4.10.0.84
