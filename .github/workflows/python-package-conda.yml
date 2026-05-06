@@ -1,34 +1,111 @@
-name: Python Package using Conda
+name: AI Calling Backend CI/CD
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+      - master
+      - dev
+
+  pull_request:
+    branches:
+      - main
+      - master
+      - dev
 
 jobs:
-  build-linux:
+  build-and-test:
     runs-on: ubuntu-latest
+
     strategy:
-      max-parallel: 5
+      max-parallel: 4
+      matrix:
+        python-version: ["3.11"]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
+
+    # =========================
+    # Checkout Repository
+    # =========================
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # =========================
+    # Setup Python
+    # =========================
+    - name: Set up Python
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
-    - name: Add conda to system path
+        python-version: ${{ matrix.python-version }}
+
+    # =========================
+    # Install System Packages
+    # =========================
+    - name: Install FFmpeg and system dependencies
       run: |
-        # $CONDA is an environment variable pointing to the root of the miniconda directory
-        echo $CONDA/bin >> $GITHUB_PATH
-    - name: Install dependencies
+        sudo apt-get update
+        sudo apt-get install -y \
+          ffmpeg \
+          libsm6 \
+          libxext6 \
+          libgl1
+
+    # =========================
+    # Upgrade pip
+    # =========================
+    - name: Upgrade pip
       run: |
-        conda env update --file environment.yml --name base
+        python -m pip install --upgrade pip
+
+    # =========================
+    # Install Dependencies
+    # =========================
+    - name: Install Python dependencies
+      run: |
+        pip install -r requirements.txt
+
+    # =========================
+    # Install Lint Tools
+    # =========================
+    - name: Install flake8
+      run: |
+        pip install flake8
+
+    # =========================
+    # Run Linter
+    # =========================
     - name: Lint with flake8
       run: |
-        conda install flake8
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
+        flake8 . \
+        --count \
+        --select=E9,F63,F7,F82 \
+        --show-source \
+        --statistics
+
+        flake8 . \
+        --count \
+        --exit-zero \
+        --max-complexity=10 \
+        --max-line-length=127 \
+        --statistics
+
+    # =========================
+    # Install Pytest
+    # =========================
+    - name: Install pytest
       run: |
-        conda install pytest
+        pip install pytest
+
+    # =========================
+    # Run Tests
+    # =========================
+    - name: Run tests
+      run: |
         pytest
+
+    # =========================
+    # Build Success
+    # =========================
+    - name: Build completed
+      run: |
+        echo "Build completed successfully"
